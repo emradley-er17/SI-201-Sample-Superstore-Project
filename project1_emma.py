@@ -5,12 +5,12 @@
 # Collaborators: Ella Kim
 # Use of AI:
 # Name of the Dataset: Sample Superstore Dataset
-# Columns: Ship Mode, Region, Category, Profit, Sales, Quantity, State, Sub-Category
+# Columns: Segment, Ship Mode, Region, Category, Profit, Sales, Quantity, State, Sub-Category
 # Calculations:
-    # 1. What is the average profit in the East region? - Ella
+    # 1. What is the average profit of all consumer goods in the East region? - Ella
     # 2. What percentage of Office Supplies that were shipped by First Class - Emma
     # 3. What percentage of Phones(sub-category) sold in California has a higher sales than 300? - Ella
-    # 4. What is the average quanitity in each region? - Emma
+    # 4. What is the average quanitity and profit in each region? - Emma
 
 import kagglehub
 import os
@@ -36,8 +36,11 @@ def load_data(csv_file):
 # QUESTION 2: What percentage of Office Supplies that were shipped by First Class - Emma
 
 #This function filters for rows where the "Category" is "Office Supplies"
-def filter_by_category(data,category):
-    return [row for row in data if row.get('Category') == category]
+def filter_data(data, conditions):
+    """
+    conditions: dict of {column: value}
+    """
+    return [row for row in data if all(row.get(k) == v for k, v in conditions.items())]
 
 #This function counts how many of the rows that were office supplies were also shipped by "First Class" for "Ship Mode"
 def count_first_class(filtered_data): 
@@ -51,14 +54,22 @@ def calculate_percentage(part,whole):
 
 #This function prints out what the percentage of office supplies shipped by first class are and ensures that the percentage is a float value rounded to the nearest 2 decimal places.
 def generate_report(percentage):
-    print(f"Percentage of office supplies shipped by first class: {percentage: .2f}%")
+    print(f"Percentage of Office Supplies shipped by First Class in the West region: {percentage: .2f}%")
+
+# QUESTION 4: What is the average quanitity in each region? - Emma
+def grouped_by_region(data):
+    grouped = {}
+    for row in data: 
+        region = row.get('Region')
+        quantity = int(row.get('Quantity', 0))
+
 
 def main():
     data = load_data(csv_file)
-    filtered_data = filter_by_category(data, "Office Supplies")
+    filtered_data = filter_data(data, {"Category": "Office Supplies", "Region": "West"})
     first_class_count = count_first_class(filtered_data)
-    total_office_supplies = len(filtered_data)
-    percentage = calculate_percentage(first_class_count, total_office_supplies)
+    total_office_supplies_west = len(filtered_data)
+    percentage = calculate_percentage(first_class_count, total_office_supplies_west)
     generate_report(percentage)
 
     #Loads the entire CSV file, Filters rows to just office supplies, counts office supplies shipped by first class, finds total number of office supply rows, calculates the percentage, prints the final result to the user. 
