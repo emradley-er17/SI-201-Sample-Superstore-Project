@@ -52,6 +52,15 @@ def calculate_percentage(part,whole):
         return 0.0
     return (part / whole) * 100
 
+# 1 file output function
+def write_percentage_to_txt(percentage, filename="q2_percentage_output.txt"):
+    """
+    Writes the Q2 result to a TXT file.
+    """
+    with open(filename, "w") as file:
+        file.write("Question 2: What percentage of Office Supplies were shipped by First Class in the West region?\n")
+        file.write(f"Answer: {percentage:.2f}%\n")
+
 #This function prints out what the percentage of office supplies shipped by first class are and ensures that the percentage is a float value rounded to the nearest 2 decimal places.
 def generate_report(percentage):
     print(f"Q2) Percentage of Office Supplies shipped by First Class in the West region: {percentage: .2f}%")
@@ -178,6 +187,8 @@ def main():
     total_office_supplies_west = len(filtered_data)
     percentage = calculate_percentage(first_class_count, total_office_supplies_west)
     generate_report(percentage)
+    write_percentage_to_txt(percentage)
+
 
     averages = average_corporate_quantity_by_region(data)
     print("Q4) Average quantity of Corporate goods in each region:")
