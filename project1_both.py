@@ -47,6 +47,12 @@ def percentage_high_sales(phone_records, threshold):
         return 0.0
     return (count_over / total) * 100.0
 
+# File output for Q1 as txt
+def write_avg_profit_to_txt(avg_profit, filename="q1_output.txt"):
+    with open(filename, "w") as f:
+        f.write(f"Q1) Average profit of all Consumer goods in the East region: {avg_profit:.2f}\n")
+
+
 # QUESTION 2: What percentage of Office Supplies that were shipped by First Class - Emma
 
 #This function filters for rows where the "Category" is "Office Supplies"
@@ -66,7 +72,7 @@ def calculate_percentage(part,whole):
         return 0.0
     return (part / whole) * 100
 
-# 1 file output function
+# file output function for Q2
 def write_percentage_to_txt(percentage, filename="q2_percentage_output.txt"):
     """
     Writes the Q2 result to a TXT file.
@@ -94,6 +100,11 @@ def to_float(text):
     text = (text or "").replace(",", "").strip()
     return float(text) if text else 0.0
 
+# file output for Q3 as txt
+def write_pct_high_sales_to_txt(pct, filename="q3_output.txt"):
+    with open(filename, "w") as f:
+        f.write("Q3) Percentage of Phones in California with Sales > 300:\n")
+        f.write(f"{pct:.2f}%\n")
 
 # QUESTION 4: What is the average quanitity of corporate goods in each region? - Emma
 def average_corporate_quantity_by_region(data):
@@ -114,6 +125,13 @@ def average_corporate_quantity_by_region(data):
         count = values['count']
         averages[region] = (values['total'] / count) if count else 0.0
     return averages
+
+# file output for Q4:
+def write_average_corporate_quantity_to_txt(averages, filename="q4_output.txt"):
+    with open(filename, "w") as f:
+        f.write("Q4) Average quantity of Corporate goods in each region:\n")
+        for region, avg in averages.items():
+            f.write(f"{region}: {avg:.2f}\n")
 
 # GROUPING / FILTERING FUNCTIONS -Ella 
 
@@ -265,10 +283,12 @@ def main(): # -Both
     califoria_records = group_by_states(records)
     avg_profit = avg_profit_consumer_east(records)
     report_1(avg_profit)
+    write_avg_profit_to_txt(avg_profit)
 
     phone_records = filter_subcategory(califoria_records, "Phones")
     pct = percentage_high_sales(phone_records, 300)
     report_3(pct)
+    write_pct_high_sales_to_txt(pct)
 
     data = load_data(csv_file)
     filtered_data = filter_data(data, {"Category": "Office Supplies", "Region": "West"})
@@ -283,6 +303,7 @@ def main(): # -Both
     print("Q4) Average quantity of Corporate goods in each region:")
     for region, avg in averages.items():
         print(f"{region}: {avg:.2f}")
+    write_average_corporate_quantity_to_txt(averages)
 
 if __name__ == "__main__":
     test_percentage_office_supplies_first_class_west()
