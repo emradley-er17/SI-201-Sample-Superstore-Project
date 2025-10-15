@@ -154,7 +154,99 @@ def report_1(avg_profit):
 def report_3(percentage):
     print(f"Q3) Percentage of Phones in California with Sales > 300: {percentage:.2f}%")
 
+# START OF TEST CASES: 
+def test_percentage_office_supplies_first_class_west(): # Q2: -Emma
+    # General Test Case 1: Some first class, some not
+    data1 = [
+        {'Category': 'Office Supplies', 'Region': 'West', 'Ship Mode': 'First Class'},
+        {'Category': 'Office Supplies', 'Region': 'West', 'Ship Mode': 'Second Class'},
+        {'Category': 'Office Supplies', 'Region': 'West', 'Ship Mode': 'First Class'},
+        {'Category': 'Furniture', 'Region': 'West', 'Ship Mode': 'First Class'},
+        {'Category': 'Office Supplies', 'Region': 'East', 'Ship Mode': 'First Class'},
+    ]
+    filtered = filter_data(data1, {"Category": "Office Supplies", "Region": "West"})
+    count = count_first_class(filtered)
+    total = len(filtered)
+    expected = (2/3) * 100
+    result = calculate_percentage(count, total)
+    assert abs(result - expected) < 0.001, f"General Test 1 failed: got {result}, expected {expected}"
 
+    # General Test Case 2: All Office Supplies are First Class
+    data2 = [
+        {'Category': 'Office Supplies', 'Region': 'West', 'Ship Mode': 'First Class'},
+        {'Category': 'Office Supplies', 'Region': 'West', 'Ship Mode': 'First Class'},
+    ]
+    filtered = filter_data(data2, {"Category": "Office Supplies", "Region": "West"})
+    count = count_first_class(filtered)
+    total = len(filtered)
+    expected = 100.0
+    result = calculate_percentage(count, total)
+    assert abs(result - expected) < 0.001, f"General Test 2 failed: got {result}, expected {expected}"
+
+    # Edge Case 1: No matching office supplies in the West
+    data3 = [
+        {'Category': 'Furniture', 'Region': 'West', 'Ship Mode': 'First Class'},
+        {'Category': 'Office Supplies', 'Region': 'East', 'Ship Mode': 'First Class'},
+    ]
+    filtered = filter_data(data3, {"Category": "Office Supplies", "Region": "West"})
+    count = count_first_class(filtered)
+    total = len(filtered)
+    expected = 0.0
+    result = calculate_percentage(count, total)
+    assert abs(result - expected) < 0.001, f"Edge Test 1 failed: got {result}, expected {expected}"
+
+    # Edge Case 2: Empty data
+    data4 = []
+    filtered = filter_data(data4, {"Category": "Office Supplies", "Region": "West"})
+    count = count_first_class(filtered)
+    total = len(filtered)
+    expected = 0.0
+    result = calculate_percentage(count, total)
+    assert abs(result - expected) < 0.001, f"Edge Test 2 failed: got {result}, expected {expected}"
+
+    print("All tests for percentage_office_supplies_first_class_west passed!")
+
+    
+def test_average_corporate_quantity_by_region(): #Q4: -Emma
+    # General Test Case 1: Multiple regions with corporate orders
+    data1 = [
+        {'Segment': 'Corporate', 'Region': 'West', 'Quantity': '5'},
+        {'Segment': 'Corporate', 'Region': 'West', 'Quantity': '3'},
+        {'Segment': 'Corporate', 'Region': 'East', 'Quantity': '7'},
+        {'Segment': 'Corporate', 'Region': 'East', 'Quantity': '9'},
+        {'Segment': 'Consumer', 'Region': 'West', 'Quantity': '100'},
+    ]
+    expected1 = {'West': 4.0, 'East': 8.0}
+    result1 = average_corporate_quantity_by_region(data1)
+    assert result1 == expected1, f"General Test 1 failed: got {result1}, expected {expected1}"
+
+    # General Test Case 2: Only one corporate region
+    data2 = [
+        {'Segment': 'Corporate', 'Region': 'West', 'Quantity': '10'},
+        {'Segment': 'Consumer', 'Region': 'East', 'Quantity': '10'},
+    ]
+    expected2 = {'West': 10.0}
+    result2 = average_corporate_quantity_by_region(data2)
+    assert result2 == expected2, f"General Test 2 failed: got {result2}, expected {expected2}"
+
+    # Edge Case 1: No corporate entries
+    data3 = [
+        {'Segment': 'Consumer', 'Region': 'West', 'Quantity': '5'},
+    ]
+    expected3 = {}
+    result3 = average_corporate_quantity_by_region(data3)
+    assert result3 == expected3, f"Edge Test 1 failed: got {result3}, expected {expected3}"
+
+    # Edge Case 2: Corporate entries with all zero quantities
+    data4 = [
+        {'Segment': 'Corporate', 'Region': 'Midwest', 'Quantity': '0'},
+        {'Segment': 'Corporate', 'Region': 'Midwest', 'Quantity': '0'}
+    ]
+    expected4 = {'Midwest': 0.0}
+    result4 = average_corporate_quantity_by_region(data4)
+    assert result4 == expected4, f"Edge Test 2 failed: got {result4}, expected {expected4}"
+
+    print("All tests for average_corporate_quantity_by_region passed!")
 
 def main(): # -Both
     csv_file = "SampleSuperstore.csv"
@@ -181,6 +273,7 @@ def main(): # -Both
     for region, avg in averages.items():
         print(f"{region}: {avg:.2f}")
 
-#Loads the entire CSV file, Filters rows to just office supplies, counts office supplies shipped by first class, finds total number of office supply rows, calculates the percentage, prints the final result to the user. 
 if __name__ == "__main__":
+    test_percentage_office_supplies_first_class_west()
+    test_average_corporate_quantity_by_region()
     main()
