@@ -52,7 +52,7 @@ def calculate_percentage(part,whole):
         return 0.0
     return (part / whole) * 100
 
-# 1 file output function
+#  Q2 file output function txt
 def write_percentage_to_txt(percentage, filename="q2_percentage_output.txt"):
     """
     Writes the Q2 result to a TXT file.
