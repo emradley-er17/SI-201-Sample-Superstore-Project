@@ -56,12 +56,25 @@ def calculate_percentage(part,whole):
 def generate_report(percentage):
     print(f"Percentage of Office Supplies shipped by First Class in the West region: {percentage: .2f}%")
 
-# QUESTION 4: What is the average quanitity in each region? - Emma
-def grouped_by_region(data):
-    grouped = {}
+# QUESTION 4: What is the average quanitity of corporate goods in each region? - Emma
+def average_corporate_quantity_by_region(data):
+    region_totals = {}
     for row in data: 
-        region = row.get('Region')
-        quantity = int(row.get('Quantity', 0))
+        if row.get('Segment') == 'Corporate':  # Only consider Corporate segment
+            region = row.get('Region')
+            if region:
+                quantity = int(row.get('Quantity', 0))
+                if region not in region_totals:
+                    region_totals[region] = {'total': 0, 'count': 0}
+                region_totals[region]['total'] += quantity
+                region_totals[region]['count'] += 1
+   
+   # Calculate the average per region
+    averages = {}
+    for region, values in region_totals.items():
+        count = values['count']
+        averages[region] = (values['total'] / count) if count else 0.0
+    return averages
 
 
 def main():
@@ -71,6 +84,11 @@ def main():
     total_office_supplies_west = len(filtered_data)
     percentage = calculate_percentage(first_class_count, total_office_supplies_west)
     generate_report(percentage)
+
+    averages = average_corporate_quantity_by_region(data)
+    print("Average quantity of Corporate goods in each region:")
+    for region, avg in averages.items():
+        print(f"{region}: {avg:.2f}")
 
     #Loads the entire CSV file, Filters rows to just office supplies, counts office supplies shipped by first class, finds total number of office supply rows, calculates the percentage, prints the final result to the user. 
 
