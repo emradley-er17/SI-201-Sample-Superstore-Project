@@ -3,7 +3,7 @@
 # Student ID: 28700423
 # School Email: hayunkim@umich.edu
 # Collaborators: Emma Radely
-# USe of AI:
+# USe of AI: 
 # Name of the Dataset: Sample Superstore Dataset
 # Columns: Ship Mode, Segment, Region, Category, Profit, Sales, Quantity, State, Sub-Category
 # Calculations:
@@ -66,7 +66,7 @@ def group_by_states(records):
     return result
 
 
-# state_records: lists of 
+
 def filter_subcatetory(state_records, subcategory):
     phone_records = []
     for r in state_records:

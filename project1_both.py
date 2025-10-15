@@ -289,11 +289,6 @@ def main(): # -Both
     report_1(avg_profit)
     write_avg_profit_to_txt(avg_profit)
 
-    phone_records = filter_subcategory(california_records, "Phones")
-    pct = percentage_high_sales(phone_records, 300)
-    report_3(pct)
-    write_pct_high_sales_to_txt(pct)
-
     data = load_data(csv_file)
     filtered_data = filter_data(data, {"Category": "Office Supplies", "Region": "West"})
     first_class_count = count_first_class(filtered_data)
@@ -302,6 +297,10 @@ def main(): # -Both
     generate_report(percentage)
     write_percentage_to_txt(percentage)
 
+    phone_records = filter_subcategory(california_records, "Phones")
+    pct = percentage_high_sales(phone_records, 300)
+    report_3(pct)
+    write_pct_high_sales_to_txt(pct)
 
     averages = average_corporate_quantity_by_region(data)
     print("Q4) Average quantity of Corporate goods in each region:")
