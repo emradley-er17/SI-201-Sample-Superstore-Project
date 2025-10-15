@@ -185,7 +185,11 @@ def report_1(avg_profit):
 def report_3(percentage):
     print(f"Q3) Percentage of Phones in California with Sales > 300: {percentage:.2f}%")
 
+
+#================================================================================================#
 # START OF TEST CASES: 
+#================================================================================================#
+
 def test_percentage_office_supplies_first_class_west(): # Q2: -Emma
     # General Test Case 1: Some first class, some not
     data1 = [
@@ -278,6 +282,11 @@ def test_average_corporate_quantity_by_region(): #Q4: -Emma
     assert result4 == expected4, f"Edge Test 2 failed: got {result4}, expected {expected4}"
 
     print("All tests for average_corporate_quantity_by_region passed!")
+
+
+#================================================================================================#
+# MAIN FUNCTION 
+#================================================================================================#
 
 def main(): # -Both
     csv_file = "SampleSuperstore.csv"
