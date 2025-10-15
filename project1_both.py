@@ -17,7 +17,7 @@ def load_data(csv_file):
             data.append(row)
     return data
 
-# Q1: Average profit of all Consumer goods in the East region
+# Q1: Average profit of all Consumer goods in the East region -Ella
 def calculate_average_profit(region_result, segment_results):
     total = 0.0
     count = 0
@@ -138,7 +138,7 @@ def group_by_states(records):
     return result
 
 
-# state_records: lists of 
+# state_records: lists of -Ella
 def filter_subcatetory(state_records, subcategory):
     phone_records = []
     for r in state_records:
@@ -156,7 +156,7 @@ def report_3(percentage):
 
 
 
-def main():
+def main(): # -Both
     csv_file = "SampleSuperstore.csv"
     records = load_data(csv_file)
 
