@@ -87,15 +87,6 @@ def generate_report(percentage):
 
 #  Q3. What percentage of Phones(sub-category) sold in California has a higher sales than 300? - Ella
 
-def load_data(csv_file):
-    records = []
-    with open(csv_file, newline = '') as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            records.append(row)
-        return records
-
-
 def to_float(text):
     text = (text or "").replace(",", "").strip()
     return float(text) if text else 0.0
