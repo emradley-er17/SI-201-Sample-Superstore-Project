@@ -271,12 +271,12 @@ def main(): # -Both
     records = load_data(csv_file)
 
     
-    califoria_records = group_by_states(records)
+    california_records = group_by_states(records)
     avg_profit = avg_profit_consumer_east(records)
     report_1(avg_profit)
     write_avg_profit_to_txt(avg_profit)
 
-    phone_records = filter_subcategory(califoria_records, "Phones")
+    phone_records = filter_subcategory(california_records, "Phones")
     pct = percentage_high_sales(phone_records, 300)
     report_3(pct)
     write_pct_high_sales_to_txt(pct)
