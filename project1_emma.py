@@ -8,7 +8,7 @@
 # Columns: Segment, Ship Mode, Region, Category, Profit, Sales, Quantity, State, Sub-Category
 # Calculations:
     # 1. What is the average profit of all consumer goods in the East region? - Ella
-    # 2. What percentage of Office Supplies that were shipped by First Class - Emma
+    # 2. What percentage of Office Supplies that were shipped by First Class in the West region? - Emma
     # 3. What percentage of Phones(sub-category) sold in California has a higher sales than 300? - Ella
     # 4. What is the average quanitity and profit in each region? - Emma
 
