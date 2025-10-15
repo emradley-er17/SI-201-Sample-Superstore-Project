@@ -35,18 +35,6 @@ def avg_profit_consumer_east(records):
     avg_profit = calculate_average_profit(region_result, segment_results)
     return avg_profit
 
-def percentage_high_sales(phone_records, threshold):
-    total = 0
-    count_over = 0
-    for r in phone_records:
-        sales_value = to_float(r.get("Sales", "0"))
-        total += 1
-        if sales_value > threshold:
-            count_over += 1
-    if total == 0:
-        return 0.0
-    return (count_over / total) * 100.0
-
 # File output for Q1 as txt
 def write_avg_profit_to_txt(avg_profit, filename="q1_output.txt"):
     with open(filename, "w") as f:
@@ -86,6 +74,17 @@ def generate_report(percentage):
     print(f"Q2) Percentage of Office Supplies shipped by First Class in the West region: {percentage: .2f}%")
 
 #  Q3. What percentage of Phones(sub-category) sold in California has a higher sales than 300? - Ella
+def percentage_high_sales(phone_records, threshold):
+    total = 0
+    count_over = 0
+    for r in phone_records:
+        sales_value = to_float(r.get("Sales", "0"))
+        total += 1
+        if sales_value > threshold:
+            count_over += 1
+    if total == 0:
+        return 0.0
+    return (count_over / total) * 100.0
 
 def to_float(text):
     text = (text or "").replace(",", "").strip()
