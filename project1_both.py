@@ -1,4 +1,4 @@
-#Project 1 Checkpoint
+#Project 1
 # Names: Emma Radley, Ella Kim
 # Student ID: 8734 4694, 2870 0423
 # School Email: emradley@umich.edu, hayunkim@umich.edu
@@ -282,7 +282,6 @@ def test_average_corporate_quantity_by_region(): #Q4: -Emma
 def main(): # -Both
     csv_file = "SampleSuperstore.csv"
     records = load_data(csv_file)
-
     
     california_records = group_by_states(records)
     avg_profit = avg_profit_consumer_east(records)
