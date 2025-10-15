@@ -1,3 +1,17 @@
+#Project 1 Checkpoint
+# Names: Emma Radley, Ella Kim
+# Student ID: 8734 4694, 2870 0423
+# School Email: emradley@umich.edu, hayunkim@umich.edu
+# Collaborators: Ella Kim, Emma Radley
+# Use of AI: Emma: I utilized UMGPT to help ensure that my formatting was correct and aligned with the example given in the instructions file. I additionally used UMGPT to help with debugging and general structure. Ella:  
+# Name of the Dataset: Sample Superstore Dataset
+# Columns: Segment, Ship Mode, Region, Category, Profit, Sales, Quantity, State, Sub-Category
+# Calculations:
+    # 1. What is the average profit of all consumer goods in the East region? - Ella
+    # 2. What percentage of Office Supplies that were shipped by First Class in the West region? - Emma
+    # 3. What percentage of Phones(sub-category) sold in California has a higher sales than 300? - Ella
+    # 4. What is the average quanitity of corporate goods in each region? - Emma
+
 import kagglehub
 import os
 import csv
