@@ -1,0 +1,12 @@
+Q1) Average profit of all Consumer goods in the East region: 28.04
+
+Q3) Percentage of Phones in California with Sales > 300: 42.44%
+
+Q2) Percentage of Office Supplies shipped by First Class in the West region:
+15.45%
+
+Q4) Average quantity of Corporate goods in each region:
+West: 3.78
+Central: 3.87
+South: 3.95
+East: 3.83
