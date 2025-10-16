@@ -286,7 +286,7 @@ def test_pct_phones_ca_over_300():
     result = percentage_high_sales(phones, 300.0)
     assert abs(result - expected) < 1e-6, f"Edge 2 failed: got {result}, expected {expected}"
 
-    print("All tests for Q2 (pct_phones_ca_over_300) passed!")
+    print("All tests for Q3 (pct_phones_ca_over_300) passed!")
 
 
 
