@@ -32,7 +32,7 @@ def load_data(csv_file):
     return data
 
 # Q1: Average profit of all Consumer goods in the East region -Ella
-def calculate_average_profit(region_result, segment_results):
+def calculate_avg_profit(region_result, segment_results):
     total = 0.0
     count = 0
     for r in segment_results:
@@ -46,7 +46,7 @@ def calculate_average_profit(region_result, segment_results):
 def avg_profit_consumer_east(records):
     region_result = group_by_region(records, "East")
     segment_results = group_by_segment(region_result, "Consumer")
-    avg_profit = calculate_average_profit(region_result, segment_results)
+    avg_profit = calculate_avg_profit(region_result, segment_results)
     return avg_profit
 
 # File output for Q1 as txt
@@ -190,6 +190,106 @@ def report_3(percentage):
 # START OF TEST CASES: 
 #================================================================================================#
 
+# Q1: -Ella
+# General Test 1: One non-matching Consumer / One non-matching Region
+def test_avg_profit_consumer_east(): 
+    data1 = [
+        {"Region": "East", "Segment": "Consumer", "Profit": "10"},
+        {"Region": "East", "Segment": "Consumer", "Profit": "20"},
+        {"Region": "East", "Segment": "Corporate", "Profit": "999"},
+        {"Region": "West", "Segment": "Consumer", "Profit": "30"},    
+    ]
+
+    east = group_by_region(data1, "East")
+    consumer = group_by_segment(east, "Consumer")
+    expected = (10 + 20) / 2  # 15.0
+    result = calculate_avg_profit(consumer)
+    assert abs(result - expected) < 1e-6, f"General 1 failed: got {result}, expected {expected}"
+
+
+# General Test 2: many consumer-in-east rows
+    data2 = [
+        {"Region": "East", "Segment": "Consumer", "Profit": "50.5"},
+        {"Region": "East", "Segment": "Consumer", "Profit": "149.5"},
+        {"Region": "East", "Segment": "Home Office", "Profit": "77"},  # not Consumer
+    ]
+    east = group_by_region(data2, "East")
+    consumer = group_by_segment(east, "Consumer")
+    expected = (50.5 + 149.5) / 2  # 100.0
+    result = calculate_avg_profit(consumer)
+    assert abs(result - expected) < 1e-6, f"General 2 failed: got {result}, expected {expected}"
+
+ # Edge Test 1: no Consumer rows in East
+    data3 = [
+        {"Region": "East", "Segment": "Corporate", "Profit": "10"},
+        {"Region": "West", "Segment": "Consumer", "Profit": "20"},
+    ]
+    east = group_by_region(data3, "East")
+    consumer = group_by_segment(east, "Consumer")
+    expected = 0.0
+    result = calculate_avg_profit(consumer)
+    assert abs(result - expected) < 1e-6, f"Edge 1 failed: got {result}, expected {expected}"
+
+# Edge Test 2: empty dataset
+    data4 = []
+    east = group_by_region(data4, "East")
+    consumer = group_by_segment(east, "Consumer")
+    expected = 0.0
+    result = calculate_avg_profit(consumer)
+    assert abs(result - expected) < 1e-6, f"Edge 2 failed: got {result}, expected {expected}"
+
+    print("All tests for Q1 (avg_profit_consumer_east) passed!")
+
+#Q3 -Ella
+def test_pct_phones_ca_over_300():
+    # General Test 1: some over threshold, some not
+    data1 = [
+        {"State": "California", "Sub-Category": "Phones", "Sales": "350"},  # over
+        {"State": "California", "Sub-Category": "Phones", "Sales": "100"},  # not over
+        {"State": "California", "Sub-Category": "Chairs", "Sales": "999"},  # not Phones
+        {"State": "Nevada", "Sub-Category": "Phones", "Sales": "400"},      # not CA
+    ]
+    ca = group_by_states(data1)
+    phones = filter_subcategory(ca, "Phones")
+    expected = (1 / 2) * 100 
+    result = percentage_high_sales(phones, 300.0)
+    assert abs(result - expected) < 1e-6, f"General 1 failed: got {result}, expected {expected}"
+
+    # General Test 2: all CA-Phone sales over 300
+    data2 = [
+        {"State": "California", "Sub-Category": "Phones", "Sales": "301"},
+        {"State": "California", "Sub-Category": "Phones", "Sales": "800"},
+        {"State": "California", "Sub-Category": "Phones", "Sales": "300.01"},
+    ]
+    ca = group_by_states(data2)
+    phones = filter_subcategory(ca, "Phones")
+    expected = 100.0
+    result = percentage_high_sales(phones, 300.0)
+    assert abs(result - expected) < 1e-6, f"General 2 failed: got {result}, expected {expected}"
+
+    # Edge Test 1: no CA-Phones rows at all
+    data3 = [
+        {"State": "California", "Sub-Category": "Chairs", "Sales": "500"},
+        {"State": "Oregon", "Sub-Category": "Phones", "Sales": "999"},
+    ]
+    ca = group_by_states(data3)
+    phones = filter_subcategory(ca, "Phones")
+    expected = 0.0
+    result = percentage_high_sales(phones, 300.0)
+    assert abs(result - expected) < 1e-6, f"Edge 1 failed: got {result}, expected {expected}"
+
+    # Edge Test 2: empty dataset
+    data4 = []
+    ca = group_by_states(data4)
+    phones = filter_subcategory(ca, "Phones")
+    expected = 0.0
+    result = percentage_high_sales(phones, 300.0)
+    assert abs(result - expected) < 1e-6, f"Edge 2 failed: got {result}, expected {expected}"
+
+    print("All tests for Q2 (pct_phones_ca_over_300) passed!")
+
+
+
 def test_percentage_office_supplies_first_class_west(): # Q2: -Emma
     # General Test Case 1: Some first class, some not
     data1 = [
@@ -292,11 +392,13 @@ def main(): # -Both
     csv_file = "SampleSuperstore.csv"
     records = load_data(csv_file)
     
+    #Q1
     california_records = group_by_states(records)
     avg_profit = avg_profit_consumer_east(records)
     report_1(avg_profit)
     write_avg_profit_to_txt(avg_profit)
 
+    #Q2
     data = load_data(csv_file)
     filtered_data = filter_data(data, {"Category": "Office Supplies", "Region": "West"})
     first_class_count = count_first_class(filtered_data)
@@ -305,11 +407,13 @@ def main(): # -Both
     generate_report(percentage)
     write_percentage_to_txt(percentage)
 
+    #Q3
     phone_records = filter_subcategory(california_records, "Phones")
     pct = percentage_high_sales(phone_records, 300)
     report_3(pct)
     write_pct_high_sales_to_txt(pct)
 
+    #Q4
     averages = average_corporate_quantity_by_region(data)
     print("Q4) Average quantity of Corporate goods in each region:")
     for region, avg in averages.items():
@@ -317,6 +421,8 @@ def main(): # -Both
     write_average_corporate_quantity_to_txt(averages)
 
 if __name__ == "__main__":
+    test_avg_profit_consumer_east()
     test_percentage_office_supplies_first_class_west()
+    test_pct_phones_ca_over_300()
     test_average_corporate_quantity_by_region()
     main()
