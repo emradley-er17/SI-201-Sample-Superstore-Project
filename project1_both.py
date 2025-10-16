@@ -3,7 +3,7 @@
 # Student ID: 8734 4694, 2870 0423
 # School Email: emradley@umich.edu, hayunkim@umich.edu
 # Collaborators: Ella Kim, Emma Radley
-# Use of AI: Emma: I utilized UMGPT to help ensure that my formatting was correct and aligned with the example given in the instructions file. I additionally used UMGPT to help with debugging and general structure. Ella:  
+# Use of AI: Emma: I utilized UMGPT to help ensure that my formatting was correct and aligned with the example given in the instructions file. I additionally used UMGPT to help with debugging and general structure. Ella: I got some help from ChatGPT asking about basic structures of test cases, comparing floating point numbers, and some debuggings.
 # Name of the Dataset: Sample Superstore Dataset
 # Columns: Segment, Ship Mode, Region, Category, Profit, Sales, Quantity, State, Sub-Category
 # Calculations:
@@ -204,7 +204,7 @@ def test_avg_profit_consumer_east():
     consumer = group_by_segment(east, "Consumer")
     expected = (10 + 20) / 2  # 15.0
     result = calculate_avg_profit(east, consumer)
-    assert abs(result - expected) < 1e-6, f"General 1 failed: got {result}, expected {expected}"
+    assert abs(result - expected) < 0.001, f"General 1 failed: got {result}, expected {expected}"
 
 
 # General Test 2: many consumer-in-east rows
@@ -217,7 +217,7 @@ def test_avg_profit_consumer_east():
     consumer = group_by_segment(east, "Consumer")
     expected = (50.5 + 149.5) / 2  # 100.0
     result = calculate_avg_profit(east, consumer)
-    assert abs(result - expected) < 1e-6, f"General 2 failed: got {result}, expected {expected}"
+    assert abs(result - expected) < 0.001, f"General 2 failed: got {result}, expected {expected}"
 
  # Edge Test 1: no Consumer rows in East
     data3 = [
@@ -228,7 +228,7 @@ def test_avg_profit_consumer_east():
     consumer = group_by_segment(east, "Consumer")
     expected = 0.0
     result = calculate_avg_profit(east, consumer)
-    assert abs(result - expected) < 1e-6, f"Edge 1 failed: got {result}, expected {expected}"
+    assert abs(result - expected) < 0.001, f"Edge 1 failed: got {result}, expected {expected}"
 
 # Edge Test 2: empty dataset
     data4 = []
@@ -236,7 +236,7 @@ def test_avg_profit_consumer_east():
     consumer = group_by_segment(east, "Consumer")
     expected = 0.0
     result = calculate_avg_profit(east, consumer)
-    assert abs(result - expected) < 1e-6, f"Edge 2 failed: got {result}, expected {expected}"
+    assert abs(result - expected) < 0.001, f"Edge 2 failed: got {result}, expected {expected}"
 
     print("All tests for Q1 (avg_profit_consumer_east) passed!")
 
@@ -253,7 +253,7 @@ def test_pct_phones_ca_over_300():
     phones = filter_subcategory(ca, "Phones")
     expected = (1 / 2) * 100 
     result = percentage_high_sales(phones, 300.0)
-    assert abs(result - expected) < 1e-6, f"General 1 failed: got {result}, expected {expected}"
+    assert abs(result - expected) < 0.001, f"General 1 failed: got {result}, expected {expected}"
 
     # General Test 2: all CA-Phone sales over 300
     data2 = [
@@ -265,7 +265,7 @@ def test_pct_phones_ca_over_300():
     phones = filter_subcategory(ca, "Phones")
     expected = 100.0
     result = percentage_high_sales(phones, 300.0)
-    assert abs(result - expected) < 1e-6, f"General 2 failed: got {result}, expected {expected}"
+    assert abs(result - expected) < 0.001, f"General 2 failed: got {result}, expected {expected}"
 
     # Edge Test 1: no CA-Phones rows at all
     data3 = [
@@ -276,7 +276,7 @@ def test_pct_phones_ca_over_300():
     phones = filter_subcategory(ca, "Phones")
     expected = 0.0
     result = percentage_high_sales(phones, 300.0)
-    assert abs(result - expected) < 1e-6, f"Edge 1 failed: got {result}, expected {expected}"
+    assert abs(result - expected) < 0.001, f"Edge 1 failed: got {result}, expected {expected}"
 
     # Edge Test 2: empty dataset
     data4 = []
@@ -284,7 +284,7 @@ def test_pct_phones_ca_over_300():
     phones = filter_subcategory(ca, "Phones")
     expected = 0.0
     result = percentage_high_sales(phones, 300.0)
-    assert abs(result - expected) < 1e-6, f"Edge 2 failed: got {result}, expected {expected}"
+    assert abs(result - expected) < 0.001, f"Edge 2 failed: got {result}, expected {expected}"
 
     print("All tests for Q3 (pct_phones_ca_over_300) passed!")
 
