@@ -203,7 +203,7 @@ def test_avg_profit_consumer_east():
     east = group_by_region(data1, "East")
     consumer = group_by_segment(east, "Consumer")
     expected = (10 + 20) / 2  # 15.0
-    result = calculate_avg_profit(consumer)
+    result = calculate_avg_profit(east, consumer)
     assert abs(result - expected) < 1e-6, f"General 1 failed: got {result}, expected {expected}"
 
 
@@ -216,7 +216,7 @@ def test_avg_profit_consumer_east():
     east = group_by_region(data2, "East")
     consumer = group_by_segment(east, "Consumer")
     expected = (50.5 + 149.5) / 2  # 100.0
-    result = calculate_avg_profit(consumer)
+    result = calculate_avg_profit(east, consumer)
     assert abs(result - expected) < 1e-6, f"General 2 failed: got {result}, expected {expected}"
 
  # Edge Test 1: no Consumer rows in East
@@ -227,7 +227,7 @@ def test_avg_profit_consumer_east():
     east = group_by_region(data3, "East")
     consumer = group_by_segment(east, "Consumer")
     expected = 0.0
-    result = calculate_avg_profit(consumer)
+    result = calculate_avg_profit(east, consumer)
     assert abs(result - expected) < 1e-6, f"Edge 1 failed: got {result}, expected {expected}"
 
 # Edge Test 2: empty dataset
@@ -235,7 +235,7 @@ def test_avg_profit_consumer_east():
     east = group_by_region(data4, "East")
     consumer = group_by_segment(east, "Consumer")
     expected = 0.0
-    result = calculate_avg_profit(consumer)
+    result = calculate_avg_profit(east, consumer)
     assert abs(result - expected) < 1e-6, f"Edge 2 failed: got {result}, expected {expected}"
 
     print("All tests for Q1 (avg_profit_consumer_east) passed!")
