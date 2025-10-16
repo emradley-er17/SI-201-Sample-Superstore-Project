@@ -1,5 +1,0 @@
-Q4) Average quantity of Corporate goods in each region:
-West: 3.78
-Central: 3.87
-South: 3.95
-East: 3.83

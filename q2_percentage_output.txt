@@ -1,2 +1,0 @@
-Question 2: What percentage of Office Supplies were shipped by First Class in the West region?
-Answer: 15.45%
